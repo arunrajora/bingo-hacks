@@ -34,6 +34,6 @@ export default class Dropmenu extends Component {
 
 const styles = StyleSheet.create({
   drop: {
-    width: 100
+    width: 120
   }
 });

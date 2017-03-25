@@ -1,13 +1,25 @@
 import React, {Component} from 'react';
 import Camera from 'react-native-camera';
 
-import {AppRegistry, StyleSheet, Text, View, Dimensions} from 'react-native';
+import {
+  AppRegistry,
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+} from 'react-native';
 
 import Dropmenu from '../components/dropdown';
 
 export default class Scanner extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      swapper: true,
+      qrdata: ''
+    }
 
     this.reader = this.reader.bind(this);
     this.takePicture = this.takePicture.bind(this);
@@ -18,16 +30,18 @@ export default class Scanner extends Component {
   }
 
   reader(data) {
-    alert(data.data);
-    console.log(data);
+    this.setState({qrdata: data.data});
+    this.setState({
+      swapper: !this.state.swapper
+    })
   }
 
   render() {
-    return (
-      <View>
-        <View style={styles.nav}>
-          <Dropmenu/>
-        </View>
+
+    let content = '';
+
+    if (this.state.swapper)
+      content = (
         <View>
           <View style={styles.cam}>
             <Camera
@@ -36,12 +50,48 @@ export default class Scanner extends Component {
             }}
               style={styles.preview}
               aspect={Camera.constants.Aspect.fill}
-              onBarCodeRead={(data) => {this.reader(data)}}
+              onBarCodeRead={(data) => {
+              this.reader(data)
+            }}
               barCodeTypes={['qr']}>
-              <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
+              {/* <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text> */}
             </Camera>
           </View>
         </View>
+
+      );
+    else
+      content = (
+        <View style={{top: 130}}>
+          <Text style={{
+            fontSize: 20
+          }}>
+            Transaction Details Received:
+          </Text>
+          <Text style={{
+            fontSize: 20
+          }}>
+            {this.state.qrdata}
+          </Text>
+
+          <View style={{paddingTop: 80}}>
+          <Button
+            // onPress={onPressLearnMore}
+            title="Confirmed !"
+            color="#43A047"
+            accessibilityLabel="Learn more about this purple button"
+            style={{paddingTop: 10}}
+          />
+        </View>
+      </View>
+      )
+
+    return (
+      <View>
+        <View style={styles.nav}>
+          <Dropmenu/>
+        </View>
+        {content}
       </View>
     );
   }
@@ -52,23 +102,23 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
   nav: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     top: -15,
-    left: Dimensions.get('window').width / 2 - 60
+    left: Dimensions.get('window').width / 2 - 60,
   },
   cam: {
     top: Dimensions.get('window').height / 4.5,
-    height: Dimensions.get('window').height - 250,
-    width: Dimensions.get('window').width - 50
+    height: Dimensions.get('window').height - 350,
+    width: Dimensions.get('window').width - 50,
   },
   preview: {
     flex: 1,
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   capture: {
     flex: 0,
@@ -76,6 +126,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     color: '#000',
     padding: 10,
-    margin: 40
-  }
+    margin: 40,
+  },
 });

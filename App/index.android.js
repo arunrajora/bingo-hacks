@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
   swapper: {
     top: 10,
     left: -Dimensions.get('window').width / 2 + 20,
-    height: 20,
-    width: 20,
+    height: 50,
+    width: 50,
     backgroundColor: 'white'
   },
 });
