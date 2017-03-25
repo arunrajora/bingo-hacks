@@ -7,6 +7,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "axios": "^0.15.3",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "foreman": "^2.0.0",
+    "marked": "^0.3.6",
+    "mongoose": "^4.9.1",
+    "nodemon": "^1.11.0",
     "react": "~15.4.1",
     "react-native": "0.42.3",
     "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git"
