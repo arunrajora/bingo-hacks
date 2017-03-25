@@ -46,8 +46,8 @@ router.route('/bingo')
 })
   .post(function (req, res) {
   var bingos = new Bingo();
-  bingos.buyer = req.body.buyer;
-  bingos.seller = req.body.seller;
+  bingos.party1 = req.body.party1;
+  bingos.party2 = req.body.party2;
   bingos.transId = req.body.transId;
 
   bingos.save(function (err) {

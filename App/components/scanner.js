@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Camera from 'react-native-camera';
+import axios from 'axios';
 
 import {
   AppRegistry,
@@ -7,7 +8,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Dimensions,
+  Dimensions
 } from 'react-native';
 
 import Dropmenu from '../components/dropdown';
@@ -18,7 +19,10 @@ export default class Scanner extends Component {
 
     this.state = {
       swapper: true,
-      qrdata: ''
+      qrdata: '',
+      party1: 'Seller',
+      party2: 'Person1',
+      transId: 'aasdakdjfakdjh'
     }
 
     this.reader = this.reader.bind(this);
@@ -34,6 +38,18 @@ export default class Scanner extends Component {
     this.setState({
       swapper: !this.state.swapper
     })
+
+    axios.post('http://192.168.2.168:3001/api/bingo', {
+      party1: this.state.party1,
+      party2: this.state.party2,
+      transId: this.state.transId
+    }).then(res => {
+      // this.setState({ data: res });
+      this.setState({party1: 'Person1', party2: 'Buyer', transId: 'sgdfgsdasdasdasd'});
+    }).catch(err => {
+      alert();
+      console.error(err);
+    });
   }
 
   render() {
@@ -79,46 +95,57 @@ export default class Scanner extends Component {
           <View style={{
             paddingTop: 80
           }}>
-            <Button // onPress={onPressLearnMore} }} title="Confirmed !" color="#43A047" accessibilityLabel="Learn more about this purple button"  style={{
+            <Button
+              title="Confirmed !"
+              color="#43A047"
+              accessibilityLabel="Learn more about this purple button"
+              style={{
               paddingTop: 10
             }}/>
           </View>
         </View>
-        ) return (
-        <View>
-          <View style={styles.nav}>
-            <Dropmenu/>
-          </View>
-          {content}
+      );
+
+    return (
+      <View>
+        <View style={styles.nav}>
+          <Dropmenu/>
         </View>
-        ); } } const styles = StyleSheet.create({container : {
-          flex: 1,
-          // justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: '#F5FCFF'
-        },
-        nav : {
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          top: -15,
-          left: Dimensions.get('window').width / 2 - 60,
-        },
-        cam : {
-          top: Dimensions.get('window').height / 4.5,
-          height: Dimensions.get('window').height - 350,
-          width: Dimensions.get('window').width - 50,
-        },
-        preview : {
-          flex: 1,
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-        },
-        capture : {
-          flex: 0,
-          backgroundColor: '#fff',
-          borderRadius: 5,
-          color: '#000',
-          padding: 10,
-          margin: 40,
-        }
+        {content}
+      </View>
+    );
+  }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  nav: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    top: -15,
+    left: Dimensions.get('window').width / 2 - 60
+  },
+  cam: {
+    top: Dimensions.get('window').height / 4.5,
+    height: Dimensions.get('window').height - 350,
+    width: Dimensions.get('window').width - 50
+  },
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  capture: {
+    flex: 0,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    color: '#000',
+    padding: 10,
+    margin: 40
+  }
+});

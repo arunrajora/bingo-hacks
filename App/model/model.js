@@ -3,8 +3,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var bingoSchema = new Schema({
-  buyer: String,
-  seller: String,
+  party1: String,
+  party2: String,
   transId: String,
 });
 
