@@ -14,7 +14,7 @@ export default class Dropmenu extends Component {
     super(props);
 
     this.state = {
-      profile: 'Seller'
+      profile: 'seller'
     }
   }
 

@@ -49,6 +49,7 @@ router.route('/bingo')
   bingos.party1 = req.body.party1;
   bingos.party2 = req.body.party2;
   bingos.transId = req.body.transId;
+  bingos.transData = req.body.transData;
 
   bingos.save(function (err) {
     if (err)

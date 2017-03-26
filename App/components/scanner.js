@@ -20,9 +20,10 @@ export default class Scanner extends Component {
     this.state = {
       swapper: true,
       qrdata: '',
-      party1: 'Seller',
-      party2: 'Person1',
-      transId: 'aasdakdjfakdjh'
+      party1: 'Person',
+      party2: 'Person',
+      transId: 'aasdakdjfakdjh',
+      count: 1,
     }
 
     this.reader = this.reader.bind(this);
@@ -40,12 +41,15 @@ export default class Scanner extends Component {
     })
 
     axios.post('http://192.168.2.168:3001/api/bingo', {
-      party1: this.state.party1,
-      party2: this.state.party2,
-      transId: this.state.transId
+      party1: this.state.party1 + this.state.count,
+      party2: this.state.party2 + (this.state.count + 1),
+      transId: this.state.transId,
+      transData: this.state.qrdata
     }).then(res => {
-      // this.setState({ data: res });
-      this.setState({party1: 'Person1', party2: 'Buyer', transId: 'sgdfgsdasdasdasd'});
+      this.setState({
+        count: this.state.count + 1,
+        transId: 'sgdfgsdasdasdasd',
+      });
     }).catch(err => {
       alert();
       console.error(err);
@@ -96,6 +100,10 @@ export default class Scanner extends Component {
             paddingTop: 80
           }}>
             <Button
+              onPress={()=>{this.setState({
+                swapper: true,
+                count: this.state.count + 1,
+              })}}
               title="Confirmed !"
               color="#43A047"
               accessibilityLabel="Learn more about this purple button"
@@ -127,12 +135,12 @@ const styles = StyleSheet.create({
   nav: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    top: -15,
+    top: -Dimensions.get('window').height/10 + 5,
     left: Dimensions.get('window').width / 2 - 60
   },
   cam: {
-    top: Dimensions.get('window').height / 4.5,
-    height: Dimensions.get('window').height - 350,
+    top: Dimensions.get('window').height / 20 - 20,
+    height: Dimensions.get('window').height - 250,
     width: Dimensions.get('window').width - 50
   },
   preview: {
