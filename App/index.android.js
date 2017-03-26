@@ -3,6 +3,7 @@ import Camera from 'react-native-camera';
 
 import Scanner from './components/scanner';
 import Qrgenerator from './components/qrgenerator';
+import firebase from 'firebase';
 
 import {
   AppRegistry,
@@ -12,6 +13,16 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+
+// // Initialize Firebase
+// var config = {
+//   apiKey: "AIzaSyA3CLj0aKmciZv1fmWSk1oVi4s2Nw7aiU0",
+//   authDomain: "bingo-1f719.firebaseapp.com",
+//   databaseURL: "https://bingo-1f719.firebaseio.com",
+//   storageBucket: "bingo-1f719.appspot.com",
+//   messagingSenderId: "1443058307"
+// };
+// firebase.initializeApp(config);
 
 export default class bingohacks extends Component {
 

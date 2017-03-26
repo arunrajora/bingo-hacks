@@ -51,6 +51,14 @@ router.route('/bingo')
   bingos.transId = req.body.transId;
   bingos.transData = req.body.transData;
 
+
+  nounce: 1,
+  recipient: this.state.party1,
+  reciever: this.state.party1,
+  phone: 9898789899,
+  transId: this.state.transId,
+  timestamp: d.getTime(),
+
   bingos.save(function (err) {
     if (err)
       res.send(err);

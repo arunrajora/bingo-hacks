@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Camera from 'react-native-camera';
 import axios from 'axios';
+import * as firebase from 'firebase';
 
 import {
   AppRegistry,
@@ -10,6 +11,16 @@ import {
   View,
   Dimensions
 } from 'react-native';
+
+var config = {
+  apiKey: "AIzaSyA3CLj0aKmciZv1fmWSk1oVi4s2Nw7aiU0",
+  authDomain: "bingo-1f719.firebaseapp.com",
+  databaseURL: "https://bingo-1f719.firebaseio.com",
+  storageBucket: "bingo-1f719.appspot.com",
+  messagingSenderId: "1443058307"
+};
+firebase.initializeApp(config);
+
 
 import Dropmenu from '../components/dropdown';
 
@@ -40,12 +51,29 @@ export default class Scanner extends Component {
       swapper: !this.state.swapper
     })
 
-    axios.post('http://192.168.2.168:3001/api/bingo', {
-      party1: this.state.party1 + this.state.count,
-      party2: this.state.party2 + (this.state.count + 1),
+
+    var d = new Date();
+    // axios.post('http://192.168.2.168:3001/api/bingo', {
+    //   nounce: 1,
+    //   recipient: this.state.party1,
+    //   reciever: this.state.party1,
+    //   phone: 9898789899,
+    //   transId: this.state.transId,
+    //   timestamp: d.getTime(),
+    // }).then(res => {}).catch(err => {
+    //       alert();
+    //       console.error(err);
+    // });
+
+    axios.post('https://bingo-1f719.firebaseio.com/data.json', {
+      nounce: 1,
+      recipient: this.state.party1,
+      reciever: this.state.party1,
+      phone: 9898789899,
       transId: this.state.transId,
-      transData: this.state.qrdata
-    }).then(res => {
+      timestamp: d.getTime(),
+    })
+    .then(res => {
       this.setState({
         count: this.state.count + 1,
         transId: 'sgdfgsdasdasdasd',
