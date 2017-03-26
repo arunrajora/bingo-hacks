@@ -1,0 +1,23 @@
+{
+  "name": "blockchain-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "bin": {
+    "blockchain-demo": "www.js"
+  },
+  "dependencies": {
+    "async": "^1.4.2",
+    "express": "^4.13.4",
+    "morgan": "^1.7.0",
+    "cookie-parser": "^1.4.3",
+    "body-parser": "~1.15.2",
+    "jade": "~1.11.0"
+},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
