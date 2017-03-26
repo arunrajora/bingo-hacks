@@ -29,14 +29,18 @@ export default class Qrgenerator extends Component {
   componentDidMount() {
     setInterval(() => {
       const count = this.state.count;
-      fetch('http://192.168.2.168:3001/api/bingo').then(data => data.json()).then(data => {
-        console.log(data[count].party1);
-        console.log(count);
-        if (count + 1== data.length)
+      fetch('https://bingo-1f719.firebaseio.com/data.json')
+      .then(data => data.json()).then(data => {
+
+        // console.log(Object.keys(data).length);
+        // console.log(count);
+        if (count + 1 == Object.keys(data).length){
+          this.state.count = this.state.count + 1;
           this.setState({swapper: true})
+        }
         // console.log(data[count].party1);
       }).catch(err => console.log(err))
-    }, 1500);
+    }, 4000);
   }
 
   render() {
@@ -62,7 +66,6 @@ export default class Qrgenerator extends Component {
         }}>
           <Button
             onPress={()=>{
-              this.state.count = this.state.count + 1
               this.setState({
               swapper: false,
             })}}
